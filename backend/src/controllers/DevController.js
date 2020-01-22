@@ -31,15 +31,17 @@ module.exports = {
       });
     }
     return res.json(dev);
+  },
+  async destroy(req, res) {
+    const github_username = req.params.github_username;
+    let dev = await Dev.findOne({ github_username });
+    console.log(dev);
+    dev.remove(function(err, user) {
+      if (err) return console.error(err);
+
+      res
+        .status(200)
+        .send(`Usuario : ${github_username} foi deletado com sucesso`);
+    });
   }
-  //   async destroy(req, res) {
-  //     const { github_username } = req.params;
-  //     let dev = await Dev.findOne({ github_username });
-  //     if (dev) {
-  //       dev.remove();
-  //       response.json(dev);
-  //     } else {
-  //       response.json(dev);
-  //     }
-  //   }
 };
