@@ -1,7 +1,11 @@
 import React from "react";
 import "./styles.css";
+import api from "./../../services/api";
 
-function DevItem({ dev }) {
+function DevItem({ dev, x }) {
+  function removeDev(data) {
+    api.delete(`/devs/${data}`);
+  }
   return (
     <li className="dev-item">
       <header>
@@ -15,6 +19,9 @@ function DevItem({ dev }) {
       <a href={`https://github.com/${dev.github_username}`}>
         Acessar Perfil No GitHub
       </a>
+      <button onClick={() => removeDev(dev.github_username)}>
+        Click Para Detelar
+      </button>
     </li>
   );
 }
